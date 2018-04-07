@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Document Upload</title>
+<meta charset="UTF-8" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+	<div class="container">
+		<h2>Upload document: </h2>
+		<form th:action="@{/upload}" enctype="multipart/form-data"
+			method="post">
+			<br />
+			<div class="form-group" style="width: 30%">
+				<label for="id">Id:</label> <input type="text" name="id"
+					class="form-control" />
+			</div>
+			<div class="form-group" style="width: 30%">
+				<label for="code">Document:</label> <input type="file"
+					name="document" class="form-control" />
+			</div>
+			<div class="form-group">
+				<input type="submit" value="upload" class="btn btn-success btn-send" />
+			</div>
+		</form>
+		<h2>Documents: </h2>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>name</th>
+					<th>link</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="document: ${documents}">
+					<td th:text="${document.id}"></td>
+					<td th:text="${document.name}"></td>
+					<td><a th:href="@{/download(id=${document.id})}"
+						class="btn btn-danger" role="button" align="center">Download</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="alert alert-success" th:if="${msg != null}">
+		<strong th:text="${msg}"></strong>
+	</div>
+</body>
+</html>
